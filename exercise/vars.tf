@@ -23,5 +23,13 @@ variable "ami_id" {
     us-east-1 = "ami-0a7d80731ae1b2435" # Example AMI ID for Ubuntu 22.04 in us-east-1
     us-west-2 = "ami-0c55b159cbfafe1f0" # Example AMI ID for Ubuntu 22.04 in us-west-2
   }
+}
+
+variable "user" {
+  description = "The user to connect to the instance"
+  type        = string
+  default     = "ubuntu" # Default user for Ubuntu AMIs
 
 }
+
+

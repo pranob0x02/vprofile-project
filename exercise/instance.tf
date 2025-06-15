@@ -22,8 +22,29 @@ resource "aws_instance" "web" {
   ]
   availability_zone = var.availability_zone
   tags = {
-    Name = "web-instance"
+    Name = "ubuntu-instance"
   }
+
+  connection {
+    type        = "ssh"
+    user        = var.user
+    private_key = file("aws-key-terraform") # Ensure you have the private key at this path
+    host        = self.public_ip
+  }
+
+  provisioner "file" {
+    source      = "web.sh"
+    destination = "/tmp/web.sh"
+  }
+
+  provisioner "remote-exec" {
+
+    inline = [
+      "chmod +x /tmp/web.sh",
+      "sudo /tmp/web.sh"
+    ]
+  }
+
 }
 
 output "web_instance_ip" {
